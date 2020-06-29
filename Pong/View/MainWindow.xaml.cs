@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -15,7 +16,6 @@ namespace PongGame
             RightPad.DataContext = _rightPad;
             LeftPad.DataContext = _leftPad;
             Ball.DataContext = _ball;
-            label4.DataContext = _rightPad;
 
             var timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(10);
@@ -56,6 +56,12 @@ namespace PongGame
 
         private void GameReset()
         {
+            if(_ball.RightResult == 10 || _ball.LeftResult == 10)
+            {
+                _ball.LeftResult = 0;
+                _ball.RightResult = 0;
+                Thread.Sleep(1000);
+            }
             _ball.Y = 210;
             _ball.X = 380;
         }
